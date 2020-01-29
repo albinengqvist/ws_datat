@@ -1,6 +1,6 @@
 import openpyxl
 import os
-
+from datetime import date
 
 filename = 'G:/Produktion/data/ws_data.xlsx'
 
@@ -18,7 +18,7 @@ else:
 wb = openpyxl.load_workbook(filename)
 sheet = wb['Data']
 
-def add_wsdata(order_no, art_no, art_fam, open, closing, comment):
+def add_wsdata(order_no, art_no, art_fam, open, closing, comment, membrane):
     ws = wb.active
     first_column = ws['A']
     second_column = ws['B']
@@ -28,18 +28,16 @@ def add_wsdata(order_no, art_no, art_fam, open, closing, comment):
     sixth_column = ws['F']
 
     col_len1 = str(len(first_column)+1)
-    col_len2 = str(len(second_column)+1)
-    col_len3 = str(len(third_column)+1)
-    col_len4 = str(len(fourth_column)+1)
-    col_len5 = str(len(fifth_column)+1)
-    col_len5 = str(len(sixth_column)+1)
+    print(col_len1)
 
     sheet['A' + col_len1] = order_no
-    sheet['B' + col_len2] = art_no
-    sheet['C' + col_len2] = art_fam
-    sheet['D' + col_len2] = open
-    sheet['E' + col_len2] = closing
-    sheet['F' + col_len2] = comment
+    sheet['B' + col_len1] = art_no
+    sheet['C' + col_len1] = art_fam
+    sheet['D' + col_len1] = open
+    sheet['E' + col_len1] = closing
+    sheet['F' + col_len1] = comment
+    sheet['G' + col_len1] = date.today()
+    sheet['H' + col_len1] = membrane
     wb.save(filename)
 
 if (sheet['A1'].value == 'order_no') and (sheet['B1'].value == 'art_no'):
@@ -49,4 +47,7 @@ else:
     sheet['B1'] = 'art_no'
     sheet['C1'] = 'art_fam'
     sheet['D1'] = 'open'
+    sheet['E1'] = 'close'
     sheet['F1'] = 'comment'
+    sheet['G1'] = 'date'
+    sheet['H1'] = 'membrane'

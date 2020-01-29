@@ -10,7 +10,8 @@ root = Tk()
 def cont():
     entry3.delete(0, END)
     entry4.delete(0, END)
-    entry4.delete(0, END)
+    entry5.delete(0, END)
+    entry6.delete(0, END)
 
 
 def clear():
@@ -19,6 +20,7 @@ def clear():
     entry3.delete(0, END)
     entry4.delete(0, END)
     entry5.delete(0, END)
+    entry6.delete(0, END)
 
 
 def popup():
@@ -51,19 +53,21 @@ def saveData():
     global entry4
     global entry5
     global entry6
+    global var
 
     order_no = entry1.get()
     art_no = entry2.get()
     open = entry3.get()
     closing = entry4.get()
     comment = entry5.get()
+    membrane = var.get()
 
     try:
         art_fam = (art_no.split('-')[0] + '-' + art_no.split('-')[1])
     except:
         art_fam = art_no
 
-    add_wsdata(order_no, art_no, art_fam, open, closing, comment)
+    add_wsdata(order_no, art_no, art_fam, open, closing, comment, membrane)
 
 filename = 'G:/Produktion/data/ws_data_hist.xlsx'
 
@@ -114,10 +118,17 @@ root.resizable(0, 0)
 root.grid_columnconfigure(1, minsize=30)
 root.grid_columnconfigure(5, minsize=30)
 root.grid_rowconfigure(0, minsize=50)
-root.grid_rowconfigure(2, minsize=50)
-root.grid_rowconfigure(4, minsize=50)
-root.grid_rowconfigure(6, minsize=50)
-root.grid_rowconfigure(8, minsize=20)
+root.grid_rowconfigure(1, minsize=30)
+root.grid_rowconfigure(2, minsize=30)
+root.grid_rowconfigure(3, minsize=30)
+root.grid_rowconfigure(4, minsize=30)
+root.grid_rowconfigure(5, minsize=30)
+root.grid_rowconfigure(6, minsize=30)
+root.grid_rowconfigure(7, minsize=30)
+root.grid_rowconfigure(8, minsize=30)
+root.grid_rowconfigure(9, minsize=30)
+root.grid_rowconfigure(10, minsize=30)
+root.grid_rowconfigure(11, minsize=20)
 
 
 
@@ -165,14 +176,31 @@ label_5.grid(row=5,column=2,sticky=W)
 entry5 = Entry(root, width = 30, relief=RIDGE)
 entry5.grid(row=5, column=3, sticky=W)
 
+label_6 = Label(root,text = "Membran omkrets [mm]:", font = (None, 11))
+label_6.grid(row=6,column=2,sticky=W)
+
+entry6 = Entry(root, width = 30, relief=RIDGE)
+entry6.grid(row=6, column=3, sticky=W)
+
+
+label_7 = Label(root,text = "Membran passning:", font = (None, 11))
+label_7.grid(row=7,column=2,sticky=W)
+var = StringVar(value="2")
+r1 = Radiobutton(root, text='Dåligt', variable=var, value='1')
+r1.grid(row=7, column = 3, sticky = W)
+r2 = Radiobutton(root, text='Ok', variable=var, value='2')
+r2.grid(row=8, column = 3, sticky = W)
+r3 = Radiobutton(root, text='Bra', variable=var, value='3')
+r3.grid(row=9, column = 3, sticky = W)
+
 button = Button(root,text='Spara',command=lambda:[saveData(),popup()], height = 1, width = 10,font = (None, 11))
-button.grid(row=7, column=3, sticky=E)
+button.grid(row=10, column=3, sticky=E)
 button.bind("<Return>", (lambda event: [saveData(),popup()]))
 
 
 
 background_image=PhotoImage(file = 'G:/Produktion/data/wapro.gif')
 background_label = Label(root, image=background_image)
-background_label.grid(row=7, column=2, sticky=W)
+background_label.grid(row=10, column=2, sticky=W)
 
 root.mainloop()
